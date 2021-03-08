@@ -70,12 +70,13 @@ h4
   width: 40vh;
   margin: 0 auto;
 }
-.title, .description, .time-stamp, .share-button, .status-text, .status-img
+.title, .description, .time-stamp, .vote-button, .status-text, .avatar
 {
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
 .description
 {
   height: 4vh;
@@ -121,16 +122,17 @@ h4
   content: "-20M";
   color: #E44426;
 }
-.status-img
+.avatar
 {
   width: 40vh;
   height: 12vh;
   margin: 0 auto;
   border-radius: 9999px;
 }
-.status-img img
+.avatar img
 {
   height: 80%;
+  margin: 0 5px 0 5px;
 }
 .time-stamp
 {
@@ -138,7 +140,7 @@ h4
   width: 40vh;
   margin: 0 auto;
 }
-.share-button
+.vote-button
 {
   position: relative;
   width: 40vh;
@@ -148,6 +150,30 @@ h4
   border-color: #324eb3;
   border-style: solid;
   border-width: 2px;
+}
+.vote-button *
+{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.vote-toggle
+{
+  width: 20%;
+  height: 100%;
+  margin-right: 10px;
+}
+.vote-star
+{
+  font-size: 22pt;
+  width: 10%;
+  height: 100%;
+}
+.vote-submit
+{
+  width: 20%;
+  height: 100%;
+  margin-left: 10px;
 }
 .panel {
   width: 40vh;
@@ -217,6 +243,9 @@ h4
   transform-origin: 100% 50%;
   background-image: url(assets/clock_hand.png);
   background-size: 100% 100%;
+  animation-fill-mode: forwards;
+  animation-duration: 2s;
+  animation-iteration-count: 1;
 }
 
 .gauge .gauge-step {
