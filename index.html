@@ -2,8 +2,16 @@
     <head>
     　　 <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>hucancode's beauti-o-meter</title>
+        <title>Beauti-O-Meter</title>
         <style>
+            @keyframes needle-animation {
+                from {
+                    transform: rotate(0deg);
+                }
+                to {
+                    transform: rotate(0deg);
+                }
+            }
             @keyframes needle-animation-0 {
                 from {
                     transform: rotate(0);
@@ -59,19 +67,16 @@
                     <div class="hole"></div>
                 </div>
             </div>
-            <div class="vote-button">
-                <span class="vote-toggle"><h3>Vote</h3></span>
-                <span class="vote-star" onclick="vote(1);">★</span>
-                <span class="vote-star" onclick="vote(2);">★</span>
-                <span class="vote-star" onclick="vote(3);">★</span>
-                <span class="vote-star" onclick="vote(4);">☆</span>
-                <span class="vote-star" onclick="vote(5);">☆</span>
-                <span class="vote-submit"><h3>OK</h3></span>
-                <!-- <span class="vote-star" onclick="vote(1);">🦖</span>
-                <span class="vote-star" onclick="vote(2);">🐊</span>
-                <span class="vote-star" onclick="vote(3);">👩‍🦳</span>
-                <span class="vote-star" onclick="vote(4);">🧚</span>
-                <span class="vote-star" onclick="vote(5);">🧜‍♀️</span> -->
+            <div style="display: none;" id="vote-form" class="vote-form">
+                <span class="vote-toggle" onclick="toggleVoteForm();"><h3>Vote</h3></span>
+                <div class="stars" id="stars" style="display: none;">
+                    <span onclick="vote(0);"></span>
+                    <span onclick="vote(1);"></span>
+                    <span onclick="vote(2);"></span>
+                    <span onclick="vote(3);"></span>
+                    <span onclick="vote(4);"></span>
+                </div>
+                <span id = "vote-submit-btn" class="vote-submit"  style="display: none;" onclick="submitVote();"><h3>OK</h3></span>
             </div>
         </main>
         <script src="./assets/bootstrap/js/bootstrap.bundle.min.js"></script>
