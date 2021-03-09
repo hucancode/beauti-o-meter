@@ -39,11 +39,8 @@ function fetchCandidates()
             i++;
         });
         console.log("candidates.length check "+candidates.length);
-        if(candidates.length > 0)
-        {
-            current_candidate = 0;
-            fetchVotes();
-        }
+        current_candidate = candidates.length - 1;
+        fetchVotes();
     });
     
 }
