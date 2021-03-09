@@ -133,6 +133,10 @@ function switchCandidate(index)
     {
         return;
     }
+    if(current_candidate == index)
+    {
+        return;
+    }
     current_candidate = index;
     fetchVotes();
 }
