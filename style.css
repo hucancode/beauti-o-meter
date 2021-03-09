@@ -156,14 +156,14 @@ h4
   height: 80%;
   margin: 0 5px 0 5px;
   border-radius: 9999px;
-  
+  border-color: rgba(0, 0, 0, 0);
+  border-width: 2px;
+  border-style: solid;
 }
 
 .avatar img.selected
 {
-  border: #0077ff;
-  border-width: 2px;
-  border-style: solid;
+  border-color: #0077ff;
 }
 .time-stamp
 {
