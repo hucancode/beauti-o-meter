@@ -137,9 +137,9 @@ function switchCandidate(index)
     fetchVotes();
 }
 
-function onIPReady(ip)
+function onIPReady(json)
 {
-    client_ip = ip;
+    client_ip = json.ip;
     document.getElementById('vote-form').style = "";
 }
 
