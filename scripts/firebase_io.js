@@ -33,7 +33,7 @@ function fetchCandidates()
         var avatars = document.getElementById("avatar").getElementsByTagName("img");
         console.log(`avatars length = ${avatars.length}`);
         snapshot.forEach((doc) => {
-            candidates.push(doc.id);
+            candidates.push({id: doc.id, data: doc.data()});
             votes.push("");
             vote_values.push(-1);
             console.log("candidates.length "+candidates.length);
@@ -50,6 +50,8 @@ function fetchCandidates()
         });
         console.log("candidates.length check "+candidates.length);
         current_candidate = candidates.length - 1;
+    }).catch((error) => {
+        console.error("Error while fetching candidates: ", error);
     });
 }
 
@@ -60,9 +62,9 @@ function fetchVotes()
         setTimeout(fetchVotes, 50);
         return;
     }
-    console.log(`fetch vote for /candidates/${candidates[current_candidate]}`);
+    console.log(`fetch vote for /candidates/${candidates[current_candidate].id}`);
     var db = firebase.firestore();
-    const candidate = db.collection('candidates').doc(candidates[current_candidate]);
+    const candidate = candidates[current_candidate];
     var query = db.collection("votes").where("vote_for", "==", candidate);
     var needle = document.getElementById('needle-img');
     needle.style.animationName = 'needle-animation';
@@ -120,12 +122,12 @@ function fetchVotes()
         {
             avatars[i].classList = i==current_candidate?["selected"]:[];
         }
-        candidate.get().then((doc) => {
-            var active_status = document.getElementById('active-status');
-            const rejected = doc.data().rejected_date.toDate() < Date.now();
-            console.log("doc.data().rejected_date "+doc.data().rejected_date);
-            active_status.classList = rejected?["inactive"]:["active"];
-        });
+        var active_status = document.getElementById('relationship');
+        const rejected = candidate.data.rejected_date.toDate() < Date.now();
+        console.log("doc.data().rejected_date "+candidate.data.rejected_date);
+        active_status.classList = rejected?["inactive"]:["active"];
+    }).catch((error) => {
+        console.error("Error while fetching votes: ", error);
     });
 }
 
@@ -154,7 +156,7 @@ function rememberCastedVote(id, candidate_id, vote_value)
     console.log(`remember vote: ${id} candidate_id - ${candidate_id} vote_value - ${vote_value}`);
     for(var i in candidates)
     {
-        if(candidates[i] == candidate_id)
+        if(candidates[i].id == candidate_id)
         {
             vote_values[i] = vote_value;
             votes[i] = id;
@@ -207,7 +209,7 @@ function submitVote()
     }
     var db = firebase.firestore();
     const vote_id = votes[current_candidate];
-    const candidate = db.collection('candidates').doc(candidates[current_candidate]);
+    const candidate = db.collection('candidates').doc(candidates[current_candidate].id);
     if(vote_id == "")
     {
         db.collection("votes").add({
@@ -219,6 +221,8 @@ function submitVote()
             console.log("new vote casted with new id: ", doc.id);
             fetchVotes();
             is_submitting_vote = false;
+        }).catch((error) => {
+            console.error("Error writing votes: ", error);
         });
     }
     else
@@ -232,6 +236,8 @@ function submitVote()
             console.log("vote successfully updated!");
             fetchVotes();
             is_submitting_vote = false;
+        }).catch((error) => {
+            console.error("Error updating vote: ", error);
         });
     }
     is_submitting_vote = true;

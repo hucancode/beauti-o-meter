@@ -71,7 +71,7 @@ h4
   margin: 0 auto;
   cursor: grab;
 }
-.title, .description, .time-stamp, .vote-form, .status-text, .active-status, .avatar
+.title, .description, .time-stamp, .vote-form, .status-text, .relationship, .avatar
 {
   display: flex;
   justify-content: center;
@@ -93,7 +93,7 @@ h4
   margin: 0 auto;
   background: white;
 }
-.active-status
+.relationship
 {
   height: 5vh;
   width: 40vh;
@@ -105,17 +105,17 @@ h4
   font-weight: bold;
   margin: 0 15px;
 }
-.active-status span
+.relationship span
 {
   font-weight: bold;
   margin: 0 15px;
 }
-.active-status span.active:after
+.relationship span.active:after
 {
   content: "Còn điện";
   color: #70d200;
 }
-.active-status span.inactive:after
+.relationship span.inactive:after
 {
   content: "Tắt điện";
   color: #000000;
