@@ -49,6 +49,8 @@ function fetchCandidates()
         });
         console.log("candidates.length check "+candidates.length);
         current_candidate = candidates.length - 1;
+        updateAvatarFrame();
+        updateRelationship();
     }).catch((error) => {
         console.error("Error while fetching candidates: ", error);
     });
@@ -71,9 +73,9 @@ function updateRelationship()
 }
 function fetchVotes()
 {
-    if(current_candidate == -1 || client_ip == "")
+    if(current_candidate == -1 || client_ip == "" || is_submitting_vote)
     {
-        setTimeout(fetchVotes, 50);
+        setTimeout(fetchVotes, 100);
         return;
     }
     console.log(`fetch vote for /candidates/${candidates[current_candidate].id}`);
@@ -140,18 +142,14 @@ function fetchVotes()
 
 function switchCandidate(index)
 {
-    if(is_submitting_vote)
-    {
-        return;
-    }
     if(current_candidate == index)
     {
         return;
     }
     current_candidate = index;
-    fetchVotes();
     updateAvatarFrame();
     updateRelationship();
+    fetchVotes();
 }
 
 function onIPReady(json)
